@@ -7,8 +7,8 @@
     <div v-if="post.tags">
       <span
        class="tag"
-        v-for="tag in post.tags"
-        :key="`tag${tag.id}`"
+        v-for="(tag, index) in post.tags"
+        :key="`tag${index}`"
       >{{tag.name}}</span>
     </div>
 

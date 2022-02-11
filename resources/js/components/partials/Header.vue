@@ -2,11 +2,19 @@
   <header>
    <nav>
      <ul>
-       <li><a href="#">Home</a></li>
-       <li><a class="active" href="#">Blog</a></li>
-       <li><a href="#">Chi siamo</a></li>
-       <li><a href="#">Contatti</a></li>
-     </ul>
+        <li>
+          <router-link :to="{name: 'home'}">Home</router-link>
+        </li>
+        <li>
+          <router-link :to="{name: 'blog'}">Blog</router-link>
+        </li>
+        <li>
+          <router-link :to="{name: 'about'}">Chi siamo</router-link>
+        </li>
+        <li>
+          <router-link :to="{name: 'contacts'}">Contatti</router-link>
+        </li>
+      </ul>
    </nav>
   </header>
 </template>
