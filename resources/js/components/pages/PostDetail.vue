@@ -1,12 +1,17 @@
 <template>
   <div class="container single-post">
-    <h3>Titolo</h3>
-    <p class="category">categoria</p>
-    <div>
-      <span class="tag">tag</span>
+    <h2>{{post.title}}</h2>
+    <p v-if="post.category" class="category">{{post.category.name}}</p>
+
+    <div v-if="post.tags">
+      <span
+       class="tag"
+        v-for="(tag, index) in post.tags"
+        :key="`tag${index}`"
+      >{{tag.name}}</span>
     </div>
-    <p class="date" >00/00/0000</p>
-    <p class="text">contenuto</p>
+
+    <p class="text">{{post.content}}</p>
   </div>
 </template>
 
@@ -14,6 +19,32 @@
 export default {
   name: 'PostDetail',
 
+  data(){
+    return {
+      apiUrl: 'http://127.0.0.1:8000/api/posts/',
+      post: {
+        title: '',
+        category: {},
+        tags: [],
+        content: '',
+
+      }
+    }
+  },
+
+  mounted(){
+    this.getApi();
+  },
+
+  methods: {
+    getApi(){
+      axios.get(this.apiUrl + this.$route.params.slug)
+      .then(res => {
+        this.post = res.data;
+        console.log(this.post);
+      })
+    }
+  }
 }
 </script>
 

@@ -2020,8 +2020,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'PostDetail'
+  name: 'PostDetail',
+  data: function data() {
+    return {
+      apiUrl: 'http://127.0.0.1:8000/api/posts/',
+      post: {
+        title: '',
+        category: {},
+        tags: [],
+        content: ''
+      }
+    };
+  },
+  mounted: function mounted() {
+    this.getApi();
+  },
+  methods: {
+    getApi: function getApi() {
+      var _this = this;
+
+      axios.get(this.apiUrl + this.$route.params.slug).then(function (res) {
+        _this.post = res.data;
+        console.log(_this.post);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -3695,26 +3724,31 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container single-post" }, [
+    _c("h2", [_vm._v(_vm._s(_vm.post.title))]),
+    _vm._v(" "),
+    _vm.post.category
+      ? _c("p", { staticClass: "category" }, [
+          _vm._v(_vm._s(_vm.post.category.name)),
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.post.tags
+      ? _c(
+          "div",
+          _vm._l(_vm.post.tags, function (tag, index) {
+            return _c("span", { key: "tag" + index, staticClass: "tag" }, [
+              _vm._v(_vm._s(tag.name)),
+            ])
+          }),
+          0
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c("p", { staticClass: "text" }, [_vm._v(_vm._s(_vm.post.content))]),
+  ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container single-post" }, [
-      _c("h3", [_vm._v("Titolo")]),
-      _vm._v(" "),
-      _c("p", { staticClass: "category" }, [_vm._v("categoria")]),
-      _vm._v(" "),
-      _c("div", [_c("span", { staticClass: "tag" }, [_vm._v("tag")])]),
-      _vm._v(" "),
-      _c("p", { staticClass: "date" }, [_vm._v("00/00/0000")]),
-      _vm._v(" "),
-      _c("p", { staticClass: "text" }, [_vm._v("contenuto")]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
